@@ -1,0 +1,46 @@
+{
+  "uid": "smartctl-basic",
+  "title": "SmartCTL - Salud de Discos",
+  "schemaVersion": 36,
+  "version": 1,
+  "panels": [
+    {
+      "id": 1,
+      "type": "stat",
+      "title": "Discos OK (1 = OK, 0 = FAIL)",
+      "targets": [
+        {
+          "expr": "smartctl_device_smart_healthy",
+          "legendFormat": "{{device}}",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "type": "timeseries",
+      "title": "Temperatura discos (°C)",
+      "targets": [
+        {
+          "expr": "smartctl_device_temperature",
+          "legendFormat": "{{device}}",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "type": "timeseries",
+      "title": "Horas de encendido",
+      "targets": [
+        {
+          "expr": "smartctl_device_power_on_hours",
+          "legendFormat": "{{device}}",
+          "refId": "A"
+        }
+      ]
+    }
+  ],
+  "templating": {"list": []},
+  "annotations": {"list": []}
+}

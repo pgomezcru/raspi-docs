@@ -1,0 +1,46 @@
+{
+  "uid": "cadvisor-basic",
+  "title": "cAdvisor - Contenedores",
+  "schemaVersion": 36,
+  "version": 1,
+  "panels": [
+    {
+      "id": 1,
+      "type": "timeseries",
+      "title": "CPU Usage (cores) por contenedor",
+      "targets": [
+        {
+          "expr": "sum by(container_label_com_docker_swarm_service_name) (rate(container_cpu_usage_seconds_total[5m]))",
+          "legendFormat": "{{container_label_com_docker_swarm_service_name}}",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "type": "timeseries",
+      "title": "Memoria usada por contenedor (MB)",
+      "targets": [
+        {
+          "expr": "sum by(container_name) (container_memory_usage_bytes) / 1024 / 1024",
+          "legendFormat": "{{container_name}}",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "type": "timeseries",
+      "title": "Network RX (bytes/s)",
+      "targets": [
+        {
+          "expr": "sum by(container_name) (rate(container_network_receive_bytes_total[5m]))",
+          "legendFormat": "{{container_name}}",
+          "refId": "A"
+        }
+      ]
+    }
+  ],
+  "templating": {"list": []},
+  "annotations": {"list": []}
+}
