@@ -52,3 +52,22 @@ services:
 ## Notas de Implementación
 - Se necesitará crear un **GitHub Personal Access Token** para configurar la sincronización.
 - Definir si la sincronización será bidireccional automática o si se priorizará una dirección (ej. GitHub como fuente de verdad).
+
+## Añadiendo mirrors en github
+
+### Paso 1 — Crear un token en GitHub
+
+En GitHub → **Settings > Developer settings > Personal access tokens > Tokens (classic)** → genera uno con scope `repo`.
+
+[Documentación tokens GitHub](https://docs.github.com/en/authentication/keeping-your-account-and-data-safe/managing-your-personal-access-tokens)
+
+### Paso 2 — Configurar el mirror en Gitea
+
+En tu repo de Gitea → **Settings > Mirror Settings** (o al crear el repo, sección _Migration_):
+
+- **Mirror URL:** `https://github.com/tu-usuario/tu-repo.git`
+- **Authorization:** tu token de GitHub como contraseña
+- **Mirror interval:** cada cuánto sincroniza (ej: `8h`, `24h`)
+- Dirección: **Push** (Gitea → GitHub)
+
+[Documentación Push Mirrors de Gitea](https://docs.gitea.com/usage/repo-mirror#pushing-to-a-remote-repository)

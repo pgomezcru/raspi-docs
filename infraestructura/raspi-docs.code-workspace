@@ -5,6 +5,9 @@
 		},
 		{
 			"path": "I:/"
+		},
+		{
+			"path": "../../../Users/pablo/.claude"
 		}
 	],
 	"settings": {
