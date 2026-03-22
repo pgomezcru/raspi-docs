@@ -1,6 +1,6 @@
 services:
   grafana:
-    image: grafana/grafana-oss:latest
+    image: grafana/grafana-oss:12.3.1
     container_name: grafana
     restart: unless-stopped
     user: "472"  # Usuario grafana (evita problemas de permisos)

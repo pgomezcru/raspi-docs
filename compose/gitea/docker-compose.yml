@@ -1,6 +1,6 @@
 services:
   server:
-    image: gitea/gitea:latest
+    image: gitea/gitea:1.25.3
     container_name: gitea
     environment:
       - USER_UID=1000
@@ -20,7 +20,7 @@ services:
       - default
 
   db:
-    image: postgres:15
+    image: postgres:15.15
     container_name: gitea-db
     environment:
       - POSTGRES_USER=gitea
