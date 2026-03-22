@@ -1,0 +1,27 @@
+# Mapa de servicios: nombre → ruta del docker-compose.yml en la Pi
+# Usado por deploy.sh para saber dónde copiar cada fichero
+
+services:
+  nginx:
+    compose: compose/nginx/docker-compose.yml
+    target:  /mnt/usb-data/nginx/docker-compose.yml
+
+  prometheus:
+    compose: compose/prometheus/docker-compose.yml
+    target:  /mnt/usb-data/prometheus/docker-compose.yml
+
+  grafana:
+    compose: compose/grafana/docker-compose.yml
+    target:  /mnt/usb-data/grafana/docker-compose.yml
+
+  adguard-home:
+    compose: compose/adguard-home/docker-compose.yml
+    target:  /mnt/usb-data/adguard-home/docker-compose.yml
+
+  gitea:
+    compose: compose/gitea/docker-compose.yml
+    target:  /mnt/usb-data/gitea/docker-compose.yml
+
+  homarr:
+    compose: compose/homarr/docker-compose.yml
+    target:  /mnt/usb-data/homarr/docker-compose.yml

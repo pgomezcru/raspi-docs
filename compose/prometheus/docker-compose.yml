@@ -1,0 +1,111 @@
+services:
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    restart: unless-stopped
+    user: "0"                       # Ejecutar como root para acceso a docker.sock (Docker SD)
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--storage.tsdb.retention.time=30d'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+      - '--web.enable-lifecycle'
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - prometheus-data:/prometheus
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    ports:
+      - "9090:9090"
+    networks:
+      - proxy_net
+      - monitoring
+
+  node-exporter:
+    image: quay.io/prometheus/node-exporter:latest
+    container_name: node-exporter
+    restart: unless-stopped
+    pid: host
+    command:
+      - '--path.rootfs=/host'
+      - '--path.procfs=/host/proc'
+      - '--path.sysfs=/host/sys'
+      - '--collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc)($$|/)'
+    volumes:
+      - /:/host:ro,rslave
+    ports:
+      - "9100:9100"
+    networks:
+      - proxy_net
+      - monitoring
+
+  smartctl-exporter:
+    image: prometheuscommunity/smartctl-exporter-linux-arm64:master
+    container_name: smartctl-exporter
+    restart: unless-stopped
+    privileged: true
+    volumes:
+      - /dev:/host/dev:ro
+    ports:
+      - "9633:9633"
+    networks:
+      - proxy_net
+      - monitoring
+
+  cadvisor:
+    image: gcr.io/cadvisor/cadvisor:latest
+    container_name: cadvisor
+    restart: unless-stopped
+    privileged: true
+    devices:
+      - /dev/kmsg
+    volumes:
+      - /:/rootfs:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /sys:/sys:ro
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+      - /var/lib/containerd:/var/lib/containerd:ro
+    ports:
+      - "8081:8080"
+    networks:
+      - proxy_net
+      - monitoring
+
+  docker-metadata-exporter:
+    build:
+      context: ./docker_metadata_exporter
+      dockerfile: Dockerfile
+    container_name: docker-metadata-exporter
+    restart: unless-stopped
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    ports:
+      - "9101:9101"
+    networks:
+      - proxy_net
+      - monitoring
+
+  prometheus-metrics-table:
+    build:
+      context: ./prometheus-metrics-table
+      dockerfile: Dockerfile
+    container_name: prometheus-metrics-table
+    restart: unless-stopped
+    environment:
+      - PORT=8000
+      - TARGETS=http://node-exporter:9100/metrics,http://cadvisor:8080/metrics,http://smartctl-exporter:9633/metrics,http://docker-metadata-exporter:9101/metrics
+    ports:
+      - "9102:8000"
+    networks:
+      - proxy_net
+      - monitoring
+
+volumes:
+  prometheus-data:
+    name: prometheus-data
+
+networks:
+  monitoring:
+    name: monitoring
+  proxy_net:
+    external: true

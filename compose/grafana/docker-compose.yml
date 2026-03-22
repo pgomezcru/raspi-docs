@@ -1,0 +1,28 @@
+services:
+  grafana:
+    image: grafana/grafana-oss:latest
+    container_name: grafana
+    restart: unless-stopped
+    user: "472"  # Usuario grafana (evita problemas de permisos)
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_ADMIN_PASSWORD}
+      - GF_INSTALL_PLUGINS=  # Dejar vacío o añadir plugins separados por coma
+    volumes:
+      - grafana-data:/var/lib/grafana
+      - ./provisioning:/etc/grafana/provisioning
+    ports:
+      - "3001:3000"
+    networks:
+      - monitoring  # Red interna para comunicarse con Prometheus
+      - proxy_net   # Red externa para acceso vía Nginx reverse proxy
+
+volumes:
+  grafana-data:
+    name: grafana-data
+
+networks:
+  monitoring:
+    external: true  # Conecta a la red creada por el stack de Prometheus
+  proxy_net:
+    external: true  # Red compartida con Nginx (debe existir previamente)

@@ -1,0 +1,5 @@
+# Nunca commitear ficheros .env con secretos reales
+.env
+
+# Logs locales
+*.log

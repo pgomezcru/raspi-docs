@@ -1,0 +1,20 @@
+services:
+  homarr:
+    image: ghcr.io/homarr-labs/homarr:latest
+    container_name: homarr
+    restart: unless-stopped
+    ports:
+      - "7575:7575"
+    volumes:
+      - /mnt/usb-data/docker-root/homarr/appdata:/appdata
+      - /mnt/usb-data/docker-root/homarr/icons:/appdata/public/icons
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    environment:
+      - TZ=Europe/Madrid
+      - SECRET_ENCRYPTION_KEY=${HOMARR_SECRET_KEY}
+    networks:
+      - proxy_net
+
+networks:
+  proxy_net:
+    external: true

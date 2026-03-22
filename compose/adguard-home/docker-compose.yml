@@ -1,0 +1,30 @@
+services:
+  adguard:
+    image: adguard/adguardhome:latest
+    container_name: adguard-home
+    restart: unless-stopped
+    ports:
+    # Exponemos con ip
+      - "192.168.1.101:53:53/tcp"
+      - "192.168.1.101:53:53/udp"
+      - "3000:3000/tcp"  # Admin Panel
+      - "8080:80/tcp"    # Admin panel HTTP
+      - "8443:443/tcp"   # Admin panel HTTPS
+    volumes:
+      - adguard-work:/opt/adguardhome/work
+      - adguard-conf:/opt/adguardhome/conf
+    environment:
+      - TZ=Europe/Madrid
+    networks:
+      - proxy_net
+
+volumes:
+  adguard-work:
+    name: adguard-work
+  adguard-conf:
+    name: adguard-conf
+
+networks:
+  proxy_net:
+    external: true
+

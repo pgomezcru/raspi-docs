@@ -110,8 +110,8 @@ kanban-plugin: board
 - [X] **Grafana/Prometheus**: Montar manuales #Monitorización
 - [X] **Grafana/Prometheus**: Desplegar contenedores #Monitorización
 - [X] **Prometheus**: Configurar exporters #Monitorización
-- [X] **Glances**: Crear `docker-compose.yml` con `pid: host`. #Monitorización
-- [X] **Glances**: Desplegar contenedor y verificar acceso web (Puerto 61208). #Monitorización
+- [X] ~~**Glances**: Crear `docker-compose.yml` con `pid: host`.~~ *(deprecado, sustituido por Prometheus+Grafana — ADR-0005)* #Monitorización
+- [X] ~~**Glances**: Desplegar contenedor y verificar acceso web (Puerto 61208).~~ *(deprecado, sustituido por Prometheus+Grafana — ADR-0005)* #Monitorización
 - [X] Decidir el servicio que se utilizará como homepage. #Homepage
 - [X] Montar manual de Homarr #Homepage
 - [X] Montar Homarr vía Docker Compose #Homepage
@@ -146,6 +146,7 @@ kanban-plugin: board
 - [x] Cambar [[infraestructura/dns.md]] para que se use como dns el contenedor de adguard y no el router 2026-01-13 19:36
 - [x] [Gitea](programacion/gitea.md):Configurar persistencia de datos. #CICD 2026-01-13 19:36
 - [x] [Gitea](programacion/gitea.md):Desplegar contenedor Docker (`gitea/gitea:latest`). #CICD 2026-01-13 19:36
+- [x] [Gitea](programacion/gitea.md):Configurar reverse proxy Nginx (`gitea.conf`). #CICD 2026-03-21
 - [x] samba #Configuración
 	    [X] Montar la carpeta de la raspberry en el pc
 	    [x] Añadir la carpeta de la raspberry al workspace de vscode 2026-01-13 19:36

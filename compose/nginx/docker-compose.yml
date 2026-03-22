@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  nginx:
+    image: nginx:latest
+    container_name: nginx_proxy
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /mnt/usb-data/nginx/conf.d:/etc/nginx/conf.d:ro
+      - /mnt/usb-data/nginx/certs:/etc/nginx/certs:ro
+      - /mnt/usb-data/nginx/logs:/var/log/nginx
+    networks:
+      - proxy_net
+
+networks:
+  proxy_net:
+    name: proxy_net
+    driver: bridge

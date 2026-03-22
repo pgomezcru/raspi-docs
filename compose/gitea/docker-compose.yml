@@ -1,0 +1,43 @@
+services:
+  server:
+    image: gitea/gitea:latest
+    container_name: gitea
+    environment:
+      - USER_UID=1000
+      - USER_GID=1000
+    restart: unless-stopped
+    depends_on:
+      - db
+    volumes:
+      - /mnt/usb-data/docker-root/gitea/data:/data
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+    ports:
+      - "3002:3000"
+      - "2222:22" # Puerto SSH alternativo para evitar conflicto con el host
+    networks:
+      - proxy_net
+      - default
+
+  db:
+    image: postgres:15
+    container_name: gitea-db
+    environment:
+      - POSTGRES_USER=gitea
+      - POSTGRES_PASSWORD=${GITEA_DB_PASSWORD}
+      - POSTGRES_DB=gitea
+    restart: unless-stopped
+    volumes:
+      - /mnt/usb-data/docker-root/gitea/postgres:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL","pg_isready -U gitea"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - proxy_net
+      - default
+
+networks:
+  proxy_net:
+    external: true
