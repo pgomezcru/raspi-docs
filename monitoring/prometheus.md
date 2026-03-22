@@ -11,10 +11,15 @@ Prometheus es la base de datos de series temporales y el motor de recolección d
 Prometheus **extrae** (pull) métricas de los **exporters** cada X segundos (scrape interval) y las almacena en su base de datos local.
 
 ```
-Prometheus ---scrape---> node_exporter (métricas del SO)
-           ---scrape---> smartctl_exporter (S.M.A.R.T.)
-           ---scrape---> cadvisor (contenedores)
-           <---query---- Grafana (para visualizar)
+Prometheus ---scrape---> node_exporter            (métricas del SO)
+           ---scrape---> smartctl_exporter         (S.M.A.R.T. de discos)
+           ---scrape---> cadvisor                  (métricas de contenedores)
+           ---scrape---> docker_metadata_exporter  (container_id → nombre)
+           ---scrape---> prometheus_metrics_table  (health check implícito)
+           <---query---- Grafana                   (visualización)
+
+docker_metadata_exporter ---lee---> Docker socket (container_id ↔ nombre)
+prometheus_metrics_table ---scrape--> todos los exporters (exploración interactiva)
 ```
 
 ## Implementación (Docker Compose)
