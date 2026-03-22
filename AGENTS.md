@@ -111,9 +111,21 @@ Los agentes tienen acceso a la Raspberry Pi a través de una cuenta de servicio 
 
 ### Estructura de la Pi
 
-- Compose files: `/mnt/usb-data/docker-root/<servicio>/docker-compose.yml`
-- Volumes: `/mnt/usb-data/docker-root/<servicio>/<volumen>/`
+- **Compose files (fuente de verdad)**: `compose/<servicio>/docker-compose.yml` en este repositorio
+- **Compose files (destino en la Pi)**: `/mnt/usb-data/<servicio>/docker-compose.yml`
+- **Script de despliegue**: `bash ~/raspi-docs/compose/deploy.sh <servicio>` (como `admin` en la Pi)
+- Volumes: `/mnt/usb-data/<servicio>/` y `/mnt/usb-data/docker-root/volumes/` (volúmenes nombrados)
 - Red interna: `proxy_net` (external, definida en Docker)
+
+### Flujo de despliegue
+
+Cualquier cambio en un `docker-compose.yml` sigue este flujo:
+1. Editar `compose/<servicio>/docker-compose.yml` en el repo
+2. `git push` → Gitea
+3. En la Pi como `admin`: `git pull && bash ~/raspi-docs/compose/deploy.sh <servicio>`
+4. `cd /mnt/usb-data/<servicio> && docker compose up -d`
+
+Ver [infraestructura/despliegue-compose.md](infraestructura/despliegue-compose.md) para la guía completa.
 
 ### Reglas de operación
 
