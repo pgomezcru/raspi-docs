@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(openspec --version)",
+      "Bash(openspec new:*)",
+      "Bash(openspec status:*)",
+      "Bash(openspec --help)",
+      "Bash(openspec instructions:*)",
+      "Bash(openspec spec:*)",
+      "Bash(kanban task:*)",
+      "Bash(kanban hooks:*)",
+      "Bash(kanban mcp:*)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "WebFetch(domain:github.com)",
+      "Bash(copier:*)"
+    ]
+  },
+  "outputStyle": "Explanatory"
+}

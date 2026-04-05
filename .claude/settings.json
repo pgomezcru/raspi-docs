@@ -1,0 +1,25 @@
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "kanban hooks notify --event activity --source claude-code --activity-text \"Tool: $CLAUDE_TOOL_NAME\""
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "kanban hooks notify --event to_review --source claude-code --final-message \"$CLAUDE_FINAL_MESSAGE\""
+          }
+        ]
+      }
+    ]
+  }
+}
