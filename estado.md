@@ -33,13 +33,11 @@
 
 ## 🔴 Divergencias importantes
 
-### 1. node-exporter sin montaje del filesystem del host
+### 1. ~~node-exporter sin montaje del filesystem del host~~ ✅ RESUELTO
 
-**Documentado** (`prometheus.md`): El contenedor debe tener `/:/host:ro,rslave` para exponer métricas reales del SO.
+**Análisis inicial**: Se interpretó `Binds: null` como ausencia de bind mount.
 
-**Real**: El contenedor no tiene ningún bind mount (`Binds: null`). Solo tiene `pid: host`.
-
-**Impacto**: node-exporter reporta métricas desde dentro del contenedor, no del host real. Las métricas de disco, filesystem y algunos indicadores de CPU/memoria pueden ser incorrectas o incompletas en Grafana.
+**Real**: El bind mount `/:/host:ro,rslave` **sí está activo**. Docker lo almacena en `HostConfig.Mounts` (no en `Binds`) cuando se usan opciones de propagación como `rslave`. Verificado con `docker inspect node-exporter --format '{{json .HostConfig.Mounts}}'`.
 
 ---
 
