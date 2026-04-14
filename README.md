@@ -5,7 +5,8 @@ Este repositorio contiene documentación y recursos relacionados con proyectos y
 ## 📂 Índices de Documentación
 
 - [📂 Infraestructura](infraestructura/_index.md): Configuración inicial, red, seguridad y acceso SSH.
-- [📂 Programación](programacion/_index.md): Gitea, Jenkins y VS Code Server.
+- [📂 Programación](programacion/_index.md): Gitea, Gitea Actions, Jenkins y VS Code Server.
+- [📂 Proyectos personales](proyectos/_index.md): Servicios propios con pipeline CI/CD via Gitea Actions.
 
 ## Hardware
 
@@ -67,4 +68,4 @@ Este repositorio contiene documentación y recursos relacionados con proyectos y
 
 ### Alojamiento de proyectos personales
 
-TBD
+- [Proyectos personales](proyectos/_index.md): Servicios propios desplegados en la raspi con pipeline CI/CD via Gitea Actions.
