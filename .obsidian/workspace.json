@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "programacion/gitea.md",
+                "file": "docs/dev/openspec-kanban-integration.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "gitea"
+              "title": "openspec-kanban-integration"
             }
           }
         ],
@@ -93,7 +93,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 200
   },
   "right": {
     "id": "87f5dbe0914f23ce",
@@ -185,10 +185,18 @@
       "obsidian-kanban:Create new board": false
     }
   },
-  "active": "e7fd009de0c8d60f",
+  "active": "8478aafcaa037917",
   "lastOpenFiles": [
-    "infraestructura/nginx.md",
+    "estado-20260331.md",
+    "estado-20260331.md.tmp.17528.1774989614276",
+    "scripts/opsx-to-kanban.sh",
+    "scripts/copilot-kanban-wrapper.sh",
+    "docs/dev/kanban-cli.md",
+    "docs/dev/openspec-kanban-integration.md",
+    "docs/dev/openspec-kanban-integration.md.tmp.17528.1774982292163",
     "programacion/gitea.md",
+    "docs/dev/kanban-cli.md.tmp.17528.1774980781964",
+    "infraestructura/nginx.md",
     "programacion/_index.md",
     "infraestructura/configuracion-inicial.md",
     "AGENTS.md",
